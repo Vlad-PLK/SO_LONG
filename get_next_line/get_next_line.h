@@ -1,39 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/26 10:06:01 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/07/24 18:19:39 by vpolojie         ###   ########.fr       */
+/*   Created: 2022/04/07 16:42:30 by vpolojie          #+#    #+#             */
+/*   Updated: 2022/07/24 18:30:39 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# define GET_NEXT_LINE_H
+# include <unistd.h>
+# include <stdlib.h>
 
-char	*ft_strjoin1(char const *s1, char const *s2)
-{	
-	char	*str;
-	int		i;
-	int		j;
+char	*get_next_line(int fd);
+int		ft_len(char *str);
+int		ft_check(char *str);
+char	*ft_strcpy(char *dest, char *src);
+void	*ft_calloc(char *line, size_t n, size_t size);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_cut_line(char *line, char *buffer, int i);
 
-	i = -1;
-	j = -1;
-	if (s1 && s2)
-	{	
-		str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-		if (!str)
-			return (0);
-		while (s1[++i])
-			str[i] = s1[i];
-		while (s2[++j])
-		{
-			str[i] = s2[j];
-			i++;
-		}
-		str[i] = '\0';
-		return (str);
-	}
-	return (0);
-}
+#endif

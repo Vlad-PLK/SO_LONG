@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../PUSH_SWAP"
+		},
+		{
+			"path": "../../GET_NEXT_LINE"
+		},
+		{
+			"path": "../../FT_PRINTF"
+		},
+		{
+			"path": "../../libft"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}

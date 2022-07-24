@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpolojie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:53:43 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/03/24 14:53:04 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/07/24 18:15:04 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <unistd.h>
+
 #include <stdlib.h>
 
-void	*ft_calloc(size_t n, size_t size)
+void	*ft_calloc1(size_t n, size_t size)
 {
 	unsigned char	*a;
 	unsigned long	i;
