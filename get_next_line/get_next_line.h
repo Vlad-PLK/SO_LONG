@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vpolojie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 16:42:30 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/07/24 18:30:39 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/05/23 20:47:41 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # include <unistd.h>
 # include <stdlib.h>

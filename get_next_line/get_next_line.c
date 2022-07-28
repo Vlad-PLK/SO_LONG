@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 20:45:56 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/07/24 18:30:37 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/07/28 09:26:53 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*ft_cut_line(char *line, char *buffer, int i)
 
 char	*get_next_line(int fd)
 {
-	static char			buffer[BUFFER_SIZE +1];
+	static char			buffer[1 +1];
 	char				*line;
 	int					rd;
 	int					i;
@@ -94,7 +94,7 @@ char	*get_next_line(int fd)
 	line = ft_strjoin(line, buffer);
 	while (ft_check(buffer) == 0 && rd > 0)
 	{
-		rd = read(fd, buffer, BUFFER_SIZE);
+		rd = read(fd, buffer, 1);
 		if ((rd == -1) || (rd == 0 && line && line[0] == '\0'))
 		{
 			free(line);
