@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:02:27 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/07/24 18:30:38 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/07/28 11:52:32 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,42 @@ int		ft_check_extension(char *arg)
 		return (-1);
 }
 
+int		ft_map_check(char **map_lines)
+{
+	///123
+}
+
 void	so_long(char *map)
 {
 	int		fd;
 	int		i;
+	int		line;
+	char	**map_lines;
 
 	i = 0;
-
+	line = 0;
 	if (ft_check_extension(map) == 1)
 	{
 		fd = open(map, O_RDONLY);
-		while(get_next_line(fd, 1) != NULL)
+		while(get_next_line(fd) != NULL)
 			i++;
-		ft_printf("%d/n", i);
+		close(fd);
+		fd = open(map, O_RDONLY);
+		map_lines = (char **)malloc(sizeof(char *) * (i +1));
+		map_lines[i +1] = 0;
+		while(i != 0)
+		{
+			map_lines[line] = ft_strdup(get_next_line(fd));
+			line++;
+			i--;
+		}
+		if (ft_map_check(map_lines) == 1)
+			ft_printf("1\n");
+		else
+		{
+			ft_printf("Error\n")
+			exit(EXIT_FAILURE);
+		}
 	}
 	else
 	{
