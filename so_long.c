@@ -12,7 +12,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "mlx.h"
+///#include "mlx.h"
 #include "printf/ft_printf.h"
 #include "printf/libft/libft.h"
 #include "get_next_line/get_next_line.h"
@@ -56,9 +56,43 @@ int		ft_check_extension(char *arg)
 		return (-1);
 }
 
-int		ft_map_check(char **map_lines)
+int		ft_map_check(char **map_lines, int nb_lines)
 {
-	///123
+	int	j;
+	int	k;
+	int	i;
+
+	j = 0;
+	i = 0;
+
+	while (j != nb_lines)
+	{
+		k = j +1;
+		while (k != nb_lines)
+		{
+			if ((ft_strlen(map_lines[j]) != ft_strlen(map_lines[k]))
+			|| ft_strlen(map_lines[j]) < 4)
+				return (0);
+			else
+				k++;
+		}
+		j++;
+	}
+	while (map_lines[0][i] != '\0' && map_lines[nb_lines][i] != '\0')
+	{
+		if(map_lines[0][i] != '1' || map_lines[nb_lines][i] != '1')
+			return (0);
+		i++;
+	}
+	i = 1;
+	while (i != (nb_lines -1))
+	{
+		if (map_lines[i][0] != '1'
+		&& map_lines[i][ft_strlen(map_lines[i] -1)] != '1')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 void	so_long(char *map)
@@ -77,7 +111,13 @@ void	so_long(char *map)
 			i++;
 		close(fd);
 		fd = open(map, O_RDONLY);
-		map_lines = (char **)malloc(sizeof(char *) * (i +1));
+		if (i >= 4)
+			map_lines = (char **)malloc(sizeof(char *) * (i +1));
+		else
+		{
+			ft_printf("Error\n");
+			exit(EXIT_FAILURE);
+		}
 		map_lines[i +1] = 0;
 		while(i != 0)
 		{
@@ -85,11 +125,11 @@ void	so_long(char *map)
 			line++;
 			i--;
 		}
-		if (ft_map_check(map_lines) == 1)
+		if (ft_map_check(map_lines, line) == 1)
 			ft_printf("1\n");
 		else
 		{
-			ft_printf("Error\n")
+			ft_printf("Error\n");
 			exit(EXIT_FAILURE);
 		}
 	}
