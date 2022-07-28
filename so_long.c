@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:02:27 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/07/28 11:52:32 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/07/28 21:37:33 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,23 @@ int		ft_map_check(char **map_lines, int nb_lines)
 		}
 		j++;
 	}
-	while (map_lines[0][i] != '\0' && map_lines[nb_lines][i] != '\0')
+	//ft_printf("%c\n", map_lines[0][ft_strlen(map_lines[0]) -1]);
+	i = 0;
+	while (i != ft_strlen(map_lines[0] -2))
 	{
-		if(map_lines[0][i] != '1' || map_lines[nb_lines][i] != '1')
+		if(map_lines[0][i] == '1' && map_lines[nb_lines -1][i] == '1')
+			i++;
+		else
 			return (0);
-		i++;
 	}
-	i = 1;
-	while (i != (nb_lines -1))
-	{
-		if (map_lines[i][0] != '1'
-		&& map_lines[i][ft_strlen(map_lines[i] -1)] != '1')
-			return (0);
-		i++;
-	}
+	//i = 1;
+	//while (i != (nb_lines -1))
+	//{
+	//	if (map_lines[i][0] != '1'
+	//	&& map_lines[i][ft_strlen(map_lines[i] -1)] != '1')
+	//		return (0);
+	//	i++;
+	//}
 	return (1);
 }
 
