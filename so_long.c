@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:02:27 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/07/28 21:37:33 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/08/03 10:53:14 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,12 @@ int		ft_check_extension(char *arg)
 		return (-1);
 }
 
-int		ft_map_check(char **map_lines, int nb_lines)
+int		ft_map_rect_check(char **map_lines, int nb_lines)
 {
 	int	j;
 	int	k;
-	int	i;
 
 	j = 0;
-	i = 0;
-
 	while (j != nb_lines)
 	{
 		k = j +1;
@@ -78,6 +75,13 @@ int		ft_map_check(char **map_lines, int nb_lines)
 		}
 		j++;
 	}
+	return (1);
+}
+
+int		ft_map_one_lst_check(char **map_lines, int nb_lines)
+{
+	int	i;
+
 	i = 0;
 	while (i != (ft_strlen(map_lines[0]) -2))
 	{
@@ -86,15 +90,62 @@ int		ft_map_check(char **map_lines, int nb_lines)
 		else
 			return (0);
 	}
+	return (1);
+}
+
+int		ft_map_check_cara(char **map_lines, int nb_lines)
+{
+	int	items;
+	int	pos;
+	int	e_xit;
+	int	i;
+	int	j;
+
 	i = 1;
+	items = 0;
+	pos = 0;
+	e_xit = 0;
 	while (i != (nb_lines -1))
 	{
 		if (map_lines[i][0] == '1'
-		&& map_lines[i][ft_strlen(map_lines[i]) -2] == '1')
+			&& map_lines[i][ft_strlen(map_lines[i]) -2] == '1')
+		{	
+			j = 1;
+			while (j != (ft_strlen(map_lines[i]) -2))
+			{
+				if (map_lines[i][j] == 'C' || map_lines[i][j] == 'P'
+				|| map_lines[i][j] == 'E' || map_lines[i][j] == '1'
+				|| map_lines[i][j] == '0')
+				{
+					if (map_lines[i][j] == 'C')
+						items++;
+					if (map_lines[i][j] == 'P')
+						pos++;
+					if (map_lines[i][j] == 'E')
+						e_xit++;
+					j++;
+				}
+				else
+					return (0);
+			}
 			i++;
+		}
 		else
 			return (0);
 	}
+	if (pos != 1 || e_xit != 1)
+		return (0);
+	return (1);
+}
+
+int		ft_map_check(char **map_lines, int nb_lines)
+{
+	if (ft_map_rect_check(map_lines, nb_lines) != 1)
+		return (0);
+	if (ft_map_one_lst_check(map_lines, nb_lines) != 1)
+		return (0);
+	if (ft_map_check_cara(map_lines, nb_lines) != 1)
+		return (0);
 	return (1);
 }
 
