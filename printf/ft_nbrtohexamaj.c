@@ -17,7 +17,7 @@ void	ft_nbrtohexamaj(va_list list_arg, size_t *nb_cara)
 	int	nbr_to_hexa;
 
 	nbr_to_hexa = (int)va_arg(list_arg, int);
-	if (nbr_to_hexa == (int) NULL)
+	if (nbr_to_hexa == 0)
 	{
 		ft_putchar_fd('0', 1);
 		(*nb_cara)++;
