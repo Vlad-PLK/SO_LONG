@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 10:40:28 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/10/03 11:32:23 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/10/04 12:14:49 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,49 @@ t_stack	*create_stack(int size)
 	return (stack);
 }
 
+void    initialize(t_queue *q)
+{
+    q->count = 0;
+    q->front = NULL;
+    q->rear = NULL;
+}
+
+int isempty(t_queue *q)
+{
+    return (q->front == NULL);
+}
+
+int ft_dequeue(t_queue *q)
+{
+    t_node *tmp;
+    int int_tmp;
+
+    int_tmp = q->front->data;
+    tmp = q->front;
+    q->front = q->front->next;
+    q->count--;
+    free(tmp);
+    return (int_tmp);
+
+}
+
+void    ft_enqueue(t_queue *q, int value)
+{
+    t_node *tmp;
+
+    tmp = malloc(sizeof(t_node));
+    tmp->data = value;
+    tmp->next = NULL;
+    if (isempty(q))
+        q->front = q->rear = tmp;
+    else
+    {
+        q->rear->next = tmp;
+        q->rear = tmp;
+    }
+    q->count++;
+}
+
 void    enqueue(t_stack *queue, int pos)
 {
     queue->top_index--;
@@ -69,11 +112,33 @@ int dequeue(t_stack *queue)
     return (pos);
 }
 
+int	is_empty(t_stack *stack)
+{
+	if (stack->top_index == stack->size_max)
+		return (1);
+	else
+		return (-1);
+}
+
+void display(t_node *head)
+{
+    if(head == NULL)
+    {
+        ft_printf("NULL\n");
+    }
+    else
+    {
+        ft_printf("%d\n", head -> data);
+        display(head->next);
+    }
+}
+
+
 int ft_find_path(char **map_lines, int nb_lines)
 {
     t_data data;
-    t_stack *rq;
-    t_stack *cq;
+    t_queue *rq;
+    t_queue *cq;
     int r;
     int c;
     int R = nb_lines;;
@@ -87,17 +152,19 @@ int ft_find_path(char **map_lines, int nb_lines)
     bool visited_map[R][C];
 
     ft_starting_cell(&data, map_lines, nb_lines);;
-    rq = create_stack(R * C);
-    cq = create_stack(R * C);
+    rq = malloc(sizeof(t_queue));
+    cq = malloc(sizeof(t_queue));
+    initialize(rq);
+    initialize(cq);
 
-    enqueue(rq, data.player_i);
-    enqueue(cq, data.player_j);
+    ft_enqueue(rq, data.player_i);
+    ft_enqueue(cq, data.player_j);
     visited_map[data.player_i][data.player_j] = true;
-    while ((rq->size_max - rq->top_index) > 0)
+    while (!(isempty(rq)))
     {
-        r = dequeue(rq);
-        c = dequeue(cq);
-
+        r = ft_dequeue(rq);
+        c = ft_dequeue(cq);
+        ft_printf("r = %d, c = %d\n", r, c);
         if (map_lines[r][c] == 'E')
         {
             reached_end = true;
@@ -107,17 +174,14 @@ int ft_find_path(char **map_lines, int nb_lines)
         {
             rr = r + dr[i];
             cc = c + dc[i];
-            if (rr < 0 || cc < 0)
-                continue;
-            if (rr >= R || cc >= C)
-                continue;
-            if (visited_map[rr][cc] == true)
-                continue;
-            if (map_lines[rr][cc] == '1')
-                continue;
-            enqueue(rq, rr);
-            enqueue(cq, cc);
-            visited_map[rr][cc] = true;
+            if ((R >= rr && rr > 0) && (C >= cc && cc > 0) &&
+                (visited_map[rr][cc] == false) && (map_lines[rr][cc] != '1'))
+            {
+                ft_enqueue(rq, rr);
+                ft_enqueue(cq, cc);
+                visited_map[rr][cc] = true;
+                ft_printf("rr = %d, cc = %d\n", rr, cc);
+            }
         }
     }
     free(rq);

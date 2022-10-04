@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:48:42 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/09/30 13:53:52 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:59:40 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,19 @@
 # define SO_LONG_H
 # include <unistd.h>
 # include <stdlib.h>
+
+typedef struct s_node
+{
+	int data;
+	struct s_node *next;
+}t_node;
+
+typedef struct s_queue
+{
+	int count;
+	t_node *front;
+	t_node *rear;
+}t_queue;
 
 typedef struct s_stack
 {
