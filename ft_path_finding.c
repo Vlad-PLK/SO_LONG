@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 10:40:28 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/10/04 12:14:49 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:36:01 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 void    ft_starting_cell(t_data *data, char **map_lines, int nb_lines)
 {
     data->i = 0;
+    data->collcts = 0;
     while (data->i != nb_lines)
     {   
         data->j = 0;
@@ -32,26 +33,14 @@ void    ft_starting_cell(t_data *data, char **map_lines, int nb_lines)
                 data->player_i = data->i;
                 data->player_j = data->j;
             }
-            if (map_lines[data->i][data->j] == 'E')
+            if (map_lines[data->i][data->j] == 'C')
             {
-                data->exit_i = data->i;
-                data->exit_j = data->j;
+                data->collcts++;
             }
             data->j++;
         }
         data->i++;
     }
-}
-
-t_stack	*create_stack(int size)
-{
-	t_stack	*stack;
-
-	stack = (t_stack *)malloc(sizeof(t_stack));
-	stack->size_max = size;
-    stack->top_index = size;
-	stack->tableau = (int *)malloc(sizeof(int) * size);
-	return (stack);
 }
 
 void    initialize(t_queue *q)
@@ -97,29 +86,6 @@ void    ft_enqueue(t_queue *q, int value)
     q->count++;
 }
 
-void    enqueue(t_stack *queue, int pos)
-{
-    queue->top_index--;
-    queue->tableau[queue->top_index] = pos;
-}
-
-int dequeue(t_stack *queue)
-{
-    int pos;
-
-    pos = queue->tableau[queue->top_index];
-    queue->top_index++;
-    return (pos);
-}
-
-int	is_empty(t_stack *stack)
-{
-	if (stack->top_index == stack->size_max)
-		return (1);
-	else
-		return (-1);
-}
-
 void display(t_node *head)
 {
     if(head == NULL)
@@ -141,7 +107,7 @@ int ft_find_path(char **map_lines, int nb_lines)
     t_queue *cq;
     int r;
     int c;
-    int R = nb_lines;;
+    int R = nb_lines;
     int C = ft_strlen(map_lines[nb_lines -1]) -1;
     int dr[4] = {-1, +1, 0, 0};
     int dc[4] = {0, 0, +1 , -1};
@@ -151,6 +117,18 @@ int ft_find_path(char **map_lines, int nb_lines)
     bool reached_end = false;
     bool visited_map[R][C];
 
+    int l = 0;
+    int j;
+    while (l != R)
+    {
+        j = 0;
+        while (j != C)
+        {
+            visited_map[l][j] = false;
+            j++;
+        }
+        l++;
+    }
     ft_starting_cell(&data, map_lines, nb_lines);;
     rq = malloc(sizeof(t_queue));
     cq = malloc(sizeof(t_queue));
@@ -164,7 +142,8 @@ int ft_find_path(char **map_lines, int nb_lines)
     {
         r = ft_dequeue(rq);
         c = ft_dequeue(cq);
-        ft_printf("r = %d, c = %d\n", r, c);
+        if (map_lines[r][c] == 'C')
+            data.collcts--;
         if (map_lines[r][c] == 'E')
         {
             reached_end = true;
@@ -174,19 +153,18 @@ int ft_find_path(char **map_lines, int nb_lines)
         {
             rr = r + dr[i];
             cc = c + dc[i];
-            if ((R >= rr && rr > 0) && (C >= cc && cc > 0) &&
+            if ((R >= rr && rr >= 0) && (C >= cc && cc >= 0) &&
                 (visited_map[rr][cc] == false) && (map_lines[rr][cc] != '1'))
             {
                 ft_enqueue(rq, rr);
                 ft_enqueue(cq, cc);
                 visited_map[rr][cc] = true;
-                ft_printf("rr = %d, cc = %d\n", rr, cc);
             }
         }
     }
     free(rq);
     free(cq);
-    if (reached_end == true)
+    if (reached_end == true && data.collcts == 0)
         return (1);
     return (-1);
 }

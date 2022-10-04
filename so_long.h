@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:48:42 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/10/04 11:59:40 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:36:58 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,6 @@ typedef struct s_queue
 	t_node *rear;
 }t_queue;
 
-typedef struct s_stack
-{
-	int	size_max;
-	int	top_index;
-	int	*tableau;
-}t_stack;
-
 typedef struct s_data
 {
 	int	i;
@@ -43,6 +36,7 @@ typedef struct s_data
 	int	player_j;
 	int	exit_i;
 	int	exit_j;
+	int collcts;
 }t_data;
 
 typedef struct s_ele
