@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 10:40:28 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/10/04 14:36:01 by vpolojie         ###   ########.fr       */
+/*   Created: 2022/10/06 09:35:35 by vpolojie          #+#    #+#             */
+/*   Updated: 2022/10/06 10:44:34 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,152 +19,110 @@
 #include <stdbool.h>
 #include <fcntl.h>
 
-void    ft_starting_cell(t_data *data, char **map_lines, int nb_lines)
+void	ft_initialize_values(t_data *d, char **map_lines, int nb_lines)
 {
-    data->i = 0;
-    data->collcts = 0;
-    while (data->i != nb_lines)
-    {   
-        data->j = 0;
-        while (data->j != (ft_strlen(map_lines[data->i]) -1))
-        {
-            if (map_lines[data->i][data->j] == 'P')
-            {
-                data->player_i = data->i;
-                data->player_j = data->j;
-            }
-            if (map_lines[data->i][data->j] == 'C')
-            {
-                data->collcts++;
-            }
-            data->j++;
-        }
-        data->i++;
-    }
+	d->x = 0;
+	d->y = 0;
+	d->collcts = 0;
+	d->j = 0;
+	d->k = 0;
+	d->row = nb_lines;
+	d->col = ft_strlen(map_lines[nb_lines -1]) - 1;
+	d->new_x = 0;
+	d->new_y = 0;
+	d->i = 0;
+	d->reached_end = false;
+	d->dr[0] = -1;
+	d->dr[1] = +1;
+	d->dr[2] = 0;
+	d->dr[3] = 0;
+	d->dc[0] = 0;
+	d->dc[1] = 0;
+	d->dc[2] = +1;
+	d->dc[3] = -1;
 }
 
-void    initialize(t_queue *q)
+bool	**create_visited_map(char **map, int nb, t_data *data)
 {
-    q->count = 0;
-    q->front = NULL;
-    q->rear = NULL;
+	data->k = 0;
+	data->v_map = (bool **)malloc(sizeof(bool *) * nb);
+	while (data->k != nb)
+	{
+		data->v_map[data->k] = (bool *)malloc(sizeof(bool)
+				* (ft_strlen(map[nb -1]) - 1));
+		data->k++;
+	}
+	data->k = 0;
+	while (data->k != data->row)
+	{
+		data->j = 0;
+		while (data->j != data->col)
+		{
+			data->v_map[data->k][data->j] = false;
+			data->j++;
+		}
+		data->k++;
+	}
+	return (data->v_map);
 }
 
-int isempty(t_queue *q)
+void	ft_check_neighbours(t_data *data, char **map, t_queue *rq, t_queue *cq)
 {
-    return (q->front == NULL);
+	data->i = 0;
+	while (data->i < 4)
+	{
+		data->new_x = data->x + data->dr[data->i];
+		data->new_y = data->y + data->dc[data->i];
+		if ((data->row >= data->new_x && data->new_x >= 0)
+			&& (data->col >= data->new_y && data->new_y >= 0)
+			&& (data->v_map[data->new_x][data->new_y] == false)
+			&& (map[data->new_x][data->new_y] != '1'))
+		{
+			if (map[data->new_x][data->new_y] == 'C')
+				data->collcts--;
+			ft_enqueue(rq, data->new_x);
+			ft_enqueue(cq, data->new_y);
+			data->v_map[data->new_x][data->new_y] = true;
+		}
+		data->i++;
+	}
 }
 
-int ft_dequeue(t_queue *q)
+void	ft_bfs_algo(t_queue *rq, t_queue *cq, t_data *data, char **map_lines)
 {
-    t_node *tmp;
-    int int_tmp;
-
-    int_tmp = q->front->data;
-    tmp = q->front;
-    q->front = q->front->next;
-    q->count--;
-    free(tmp);
-    return (int_tmp);
-
+	while (!(isempty(rq)))
+	{
+		data->x = ft_dequeue(rq);
+		data->y = ft_dequeue(cq);
+		if (data->v_map[data->end_i][data->end_j] == true && data->collcts == 0)
+		{
+			data->reached_end = true;
+			break ;
+		}
+		ft_check_neighbours(data, map_lines, rq, cq);
+	}
 }
 
-void    ft_enqueue(t_queue *q, int value)
+int	ft_find_path(char **map_lines, int n)
 {
-    t_node *tmp;
+	t_data	data;
+	t_queue	*rq;
+	t_queue	*cq;
 
-    tmp = malloc(sizeof(t_node));
-    tmp->data = value;
-    tmp->next = NULL;
-    if (isempty(q))
-        q->front = q->rear = tmp;
-    else
-    {
-        q->rear->next = tmp;
-        q->rear = tmp;
-    }
-    q->count++;
-}
-
-void display(t_node *head)
-{
-    if(head == NULL)
-    {
-        ft_printf("NULL\n");
-    }
-    else
-    {
-        ft_printf("%d\n", head -> data);
-        display(head->next);
-    }
-}
-
-
-int ft_find_path(char **map_lines, int nb_lines)
-{
-    t_data data;
-    t_queue *rq;
-    t_queue *cq;
-    int r;
-    int c;
-    int R = nb_lines;
-    int C = ft_strlen(map_lines[nb_lines -1]) -1;
-    int dr[4] = {-1, +1, 0, 0};
-    int dc[4] = {0, 0, +1 , -1};
-    int rr;
-    int cc;
-    int i;
-    bool reached_end = false;
-    bool visited_map[R][C];
-
-    int l = 0;
-    int j;
-    while (l != R)
-    {
-        j = 0;
-        while (j != C)
-        {
-            visited_map[l][j] = false;
-            j++;
-        }
-        l++;
-    }
-    ft_starting_cell(&data, map_lines, nb_lines);;
-    rq = malloc(sizeof(t_queue));
-    cq = malloc(sizeof(t_queue));
-    initialize(rq);
-    initialize(cq);
-
-    ft_enqueue(rq, data.player_i);
-    ft_enqueue(cq, data.player_j);
-    visited_map[data.player_i][data.player_j] = true;
-    while (!(isempty(rq)))
-    {
-        r = ft_dequeue(rq);
-        c = ft_dequeue(cq);
-        if (map_lines[r][c] == 'C')
-            data.collcts--;
-        if (map_lines[r][c] == 'E')
-        {
-            reached_end = true;
-            break;
-        }
-        for(i = 0; i < 4; i++)
-        {
-            rr = r + dr[i];
-            cc = c + dc[i];
-            if ((R >= rr && rr >= 0) && (C >= cc && cc >= 0) &&
-                (visited_map[rr][cc] == false) && (map_lines[rr][cc] != '1'))
-            {
-                ft_enqueue(rq, rr);
-                ft_enqueue(cq, cc);
-                visited_map[rr][cc] = true;
-            }
-        }
-    }
-    free(rq);
-    free(cq);
-    if (reached_end == true && data.collcts == 0)
-        return (1);
-    return (-1);
+	data.v_map = NULL;
+	ft_initialize_values(&data, map_lines, n);
+	ft_starting_cell(&data, map_lines, n);
+	data.v_map = create_visited_map(map_lines, n, &data);
+	rq = malloc(sizeof(t_queue));
+	cq = malloc(sizeof(t_queue));
+	initialize(rq);
+	initialize(cq);
+	ft_enqueue(rq, data.player_i);
+	ft_enqueue(cq, data.player_j);
+	data.v_map[data.player_i][data.player_j] = true;
+	ft_bfs_algo(rq, cq, &data, map_lines);
+	ft_free_path_finding(rq, cq, &data, n);
+	if (data.reached_end == true)
+		return (1);
+	return (-1);
 }

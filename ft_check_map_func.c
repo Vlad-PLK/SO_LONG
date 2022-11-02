@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:47:55 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/10/04 12:53:28 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/10/06 10:08:09 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	ft_map_check(char **map_lines, int nb_lines)
 		return (0);
 	if (ft_find_path(map_lines, nb_lines) == -1)
 	{
-		ft_printf("NO CLEAR PATH TO EXIT\n");
+		ft_printf("NO CLEAR PATH TO EXIT OR BLOCKED COLLECTIBLES\n");
 		return (1);
 	}
 	return (1);

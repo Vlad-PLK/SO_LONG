@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 22:37:52 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/09/28 10:20:11 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/10/06 10:47:02 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,17 @@ int	ft_check_wasd(int keycode, t_mlx *mlx)
 	if (i != mlx->nb_pas)
 		ft_printf("%d \n", mlx->nb_pas);
 	return (0);
+}
+
+void	ft_free_path_finding(t_queue *rq, t_queue *cq, t_data *data, int n)
+{
+	free(rq);
+	free(cq);
+	data->i = 0;
+	while (data->i != n)
+	{
+		free(data->v_map[data->i]);
+		data->i++;
+	}
+	free(data->v_map);
 }

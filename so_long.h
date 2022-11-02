@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:48:42 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/10/04 14:36:58 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/10/06 10:46:07 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,41 @@
 # define SO_LONG_H
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
 
 typedef struct s_node
 {
-	int data;
-	struct s_node *next;
+	int				data;
+	struct s_node	*next;
 }t_node;
 
 typedef struct s_queue
 {
-	int count;
-	t_node *front;
-	t_node *rear;
+	int		count;
+	t_node	*front;
+	t_node	*rear;
 }t_queue;
 
 typedef struct s_data
 {
-	int	i;
-	int	j;
-	int	player_i;
-	int	player_j;
-	int	exit_i;
-	int	exit_j;
-	int collcts;
+	int		player_i;
+	int		player_j;
+	int		end_i;
+	int		end_j;
+	int		collcts;
+	int		x;
+	int		y;
+	int		i;
+	int		j;
+	int		k;
+	int		row;
+	int		col;
+	int		new_x;
+	int		new_y;
+	int		dr[4];
+	int		dc[4];
+	bool	reached_end;
+	bool	**v_map;
 }t_data;
 
 typedef struct s_ele
@@ -71,7 +83,7 @@ typedef struct s_mlx
 
 typedef struct s_img
 {
-    void	*img;
+	void	*img;
 	char	*relative_path;
 	int		img_width;
 	int		img_height;
@@ -92,6 +104,8 @@ int		ft_loop_cara(t_mlx *mlx);
 int		get_next_line_v2(int fd);
 int		ft_check_wasd(int keycode, t_mlx *mlx);
 int		ft_find_path(char **map_lines, int nb_lines);
+int		isempty(t_queue *q);
+int		ft_dequeue(t_queue *q);
 t_img	*ft_cara(t_mlx *mlx);
 t_img	*ft_door(t_mlx *mlx);
 t_img	*ft_collct(t_mlx *mlx);
@@ -110,5 +124,12 @@ void	ft_check_close(t_mlx *mlx);
 void	ft_free_img(t_img *sol, t_img *collct, t_img *door);
 void	so_long(char *map);
 void	create_mlx(t_mlx *mlx, char **map);
+void	ft_starting_cell(t_data *data, char **map_lines, int nb_lines);
+void	initialize(t_queue *q);
+void	ft_enqueue(t_queue *q, int value);
+void	ft_free_path_finding(t_queue *rq, t_queue *cq, t_data *data, int n);
+void	ft_bfs_algo(t_queue *rq, t_queue *cq, t_data *data, char **map_lines);
+void	ft_check_neighbours(t_data *data, char **map, t_queue *rq, t_queue *cq);
+bool	**create_visited_map(char **map, int nb, t_data *data);
 
 #endif
