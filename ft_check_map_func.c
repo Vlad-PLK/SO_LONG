@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:47:55 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/10/06 10:08:09 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/04 10:10:11 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,7 @@ void	ft_map_check_cara2(char **map_lines, t_ele *ele)
 		ele->j++;
 	}
 	else
-	{
 		ft_printf("INCORRECT ELEMENT DETECTED\n");
-		ft_error_func(map_lines);
-	}
 }
 
 int	ft_map_check_cara(char **map_lines, int nb_lines)
@@ -122,7 +119,7 @@ int	ft_map_check(char **map_lines, int nb_lines)
 	if (ft_find_path(map_lines, nb_lines) == -1)
 	{
 		ft_printf("NO CLEAR PATH TO EXIT OR BLOCKED COLLECTIBLES\n");
-		return (1);
+		return (0);
 	}
 	return (1);
 }

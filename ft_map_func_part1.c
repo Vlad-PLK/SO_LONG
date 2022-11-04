@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:34:30 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/08/18 21:32:14 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/04 10:11:41 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,19 @@ void	ft_map_init(char **map_lines, int i, int line, int fd)
 	if (ft_map_check(map_lines, line) == 1)
 		ft_display_map(map_lines, line);
 	else
-		ft_error_func(map_lines);
+		ft_error_func(map_lines, line);
 }
 
-void	ft_error_func(char	**map)
+void	ft_error_func(char	**map, int nb_lines)
 {
+	int	i;
+
+	i = 0;
+	while (i != nb_lines)
+	{
+		free(map[i]);
+		i++;
+	}
 	free(map);
 	ft_printf("Error\n");
 	exit(EXIT_FAILURE);

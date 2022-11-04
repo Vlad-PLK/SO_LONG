@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:02:27 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/10/05 09:00:55 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/04 08:56:57 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	so_long(char *map)
 		if (i >= 4)
 			ft_map_init(map_lines, i, line, fd);
 		else
-			ft_error_func(map_lines);
+			ft_error_func(map_lines, i);
 	}
 	else
-		ft_error_func(map_lines);
+		ft_error_func(map_lines, i);
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 22:40:15 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/09/28 10:36:05 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/04 09:42:58 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,5 @@ void	ft_display_map(char	**map, int nb_lines)
 	mlx_put_image_to_window(mlx.mlx, mlx.mlx_win, mlx.img, mlx.x, mlx.y);
 	mlx_hook(mlx.mlx_win, 17, (1L << 2), ft_close_mouse, &mlx);
 	mlx_hook(mlx.mlx_win, 02, (1L << 0), ft_check_wasd, &mlx);
-	free(mur);
 	mlx_loop(mlx.mlx);
 }
