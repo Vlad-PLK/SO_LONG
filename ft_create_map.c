@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:34:30 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/11/17 10:58:39 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/18 10:51:19 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	ft_map_init(char **map_lines, int i, int line, int fd)
 		line++;
 		i--;
 	}
+	close(fd);
 	if (ft_map_check(map_lines, line) == 1)
 		ft_display_map(map_lines, line);
 }

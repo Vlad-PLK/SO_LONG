@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 09:35:35 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/11/17 10:21:25 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/18 10:25:31 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ bool	**create_visited_map(char **map, int nb, t_data *data)
 				* (ft_strlen(map[nb -1]) - 1));
 		data->k++;
 	}
+	data->k = 0;
 	while (data->k != data->row)
 	{
 		data->j = 0;

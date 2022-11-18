@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 22:32:37 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/11/17 12:24:46 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/18 12:55:31 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int	ft_loop_cara(t_mlx *mlx)
 {
 	int	i;
 	int	j;
+	int	steps;	
 
+	steps = 0;
 	i = ((mlx->y) / 32);
 	j = ((mlx->x) / 32);
 	if (mlx->map[i][j] == '1')
@@ -39,10 +41,9 @@ void	ft_wasd_move_part2(int keycode, t_mlx *mlx, t_img *door)
 	if (keycode == 2 && (mlx->map[mlx->i][mlx->j +1] != '1'))
 	{
 		if (mlx->map[mlx->i][mlx->j +1] == 'C' && mlx->items == 1)
-			mlx_put_image_to_window(mlx->mlx, mlx->mlx_win,
-				door->img, mlx->x_door, mlx->y_door);
+			end_map_condition(mlx, door);
 		if (mlx->map[mlx->i][mlx->j +1] == 'E' && mlx->items == 0)
-			exit(EXIT_SUCCESS);
+			ending_message(mlx);
 		if (!(mlx->map[mlx->i][mlx->j +1] == 'E' && mlx->items != 0))
 			mlx->nb_pas++;
 		if (!(mlx->map[mlx->i][mlx->j +1] == 'E' && mlx->items != 0))
@@ -51,10 +52,9 @@ void	ft_wasd_move_part2(int keycode, t_mlx *mlx, t_img *door)
 	if (keycode == 13 && (mlx->map[mlx->i -1][mlx->j] != '1'))
 	{
 		if (mlx->map[mlx->i -1][mlx->j] == 'C' && mlx->items == 1)
-			mlx_put_image_to_window(mlx->mlx, mlx->mlx_win,
-				door->img, mlx->x_door, mlx->y_door);
+			end_map_condition(mlx, door);
 		if (mlx->map[mlx->i -1][mlx->j] == 'E' && mlx->items == 0)
-			exit(EXIT_SUCCESS);
+			ending_message(mlx);
 		if (!(mlx->map[mlx->i -1][mlx->j] == 'E' && mlx->items != 0))
 			mlx->nb_pas++;
 		if (!(mlx->map[mlx->i -1][mlx->j] == 'E' && mlx->items != 0))
@@ -67,10 +67,9 @@ void	ft_wasd_move(int keycode, t_mlx *mlx, t_img *door)
 	if (keycode == 0 && (mlx->map[mlx->i][mlx->j -1] != '1'))
 	{
 		if (mlx->map[mlx->i][mlx->j -1] == 'C' && mlx->items == 1)
-			mlx_put_image_to_window(mlx->mlx, mlx->mlx_win,
-				door->img, mlx->x_door, mlx->y_door);
+			end_map_condition(mlx, door);
 		if (mlx->map[mlx->i][mlx->j -1] == 'E' && mlx->items == 0)
-			exit(EXIT_SUCCESS);
+			ending_message(mlx);
 		if (!(mlx->map[mlx->i][mlx->j -1] == 'E' && mlx->items != 0))
 			mlx->nb_pas++;
 		if (!(mlx->map[mlx->i][mlx->j -1] == 'E' && mlx->items != 0))
@@ -79,10 +78,9 @@ void	ft_wasd_move(int keycode, t_mlx *mlx, t_img *door)
 	if (keycode == 1 && (mlx->map[mlx->i +1][mlx->j] != '1'))
 	{
 		if (mlx->map[mlx->i +1][mlx->j] == 'C' && mlx->items == 1)
-			mlx_put_image_to_window(mlx->mlx, mlx->mlx_win,
-				door->img, mlx->x_door, mlx->y_door);
+			end_map_condition(mlx, door);
 		if (mlx->map[mlx->i +1][mlx->j] == 'E' && mlx->items == 0)
-			exit(EXIT_SUCCESS);
+			ending_message(mlx);
 		if (!(mlx->map[mlx->i +1][mlx->j] == 'E' && mlx->items != 0))
 			mlx->nb_pas++;
 		if (!(mlx->map[mlx->i +1][mlx->j] == 'E' && mlx->items != 0))
@@ -103,10 +101,10 @@ void	ft_wasd_loop(t_mlx *mlx, int keycode)
 			&door->img_width, &door->img_height);
 	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, sol->img, mlx->x, mlx->y);
 	ft_wasd_move(keycode, mlx, door);
-	if (mlx->map[mlx->i][mlx->j] == 'C')
+	if (mlx->map[mlx->i][mlx->j] == 'C' && mlx->items != 0)
 	{
 		mlx->items--;
-		mlx->map[mlx->i][mlx->j] = 'O';
+		mlx->map[mlx->i][mlx->j] = '0';
 	}
 	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, sol->img, mlx->x, mlx->y);
 	free(door);

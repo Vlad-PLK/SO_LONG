@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:48:42 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/11/17 11:04:21 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/18 11:49:08 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ t_img	*ft_collct(t_mlx *mlx);
 t_img	*ft_floor(t_mlx *mlx);
 t_img	*ft_wall(t_mlx *mlx);
 void	ft_map_init(char **map_lines, int i, int line, int fd);
+void	end_map_condition(t_mlx *mlx, t_img *door);
+void	ending_message(t_mlx *mlx);
 void	ft_free_wasd_show_result(t_mlx *mlx, t_img *door);
 void	ft_wasd_move_part2(int keycode, t_mlx *mlx, t_img *door);
 void	ft_wasd_move(int keycode, t_mlx *mlx, t_img *door);
