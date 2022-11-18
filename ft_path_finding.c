@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 09:35:35 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/11/04 09:21:41 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/17 10:21:25 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ bool	**create_visited_map(char **map, int nb, t_data *data)
 				* (ft_strlen(map[nb -1]) - 1));
 		data->k++;
 	}
-	data->k = 0;
 	while (data->k != data->row)
 	{
 		data->j = 0;
@@ -121,7 +120,7 @@ int	ft_find_path(char **map_lines, int n)
 	ft_enqueue(cq, data.player_j);
 	data.v_map[data.player_i][data.player_j] = true;
 	ft_bfs_algo(rq, cq, &data, map_lines);
-	ft_free_path_finding(rq, cq, &data, n);
+	ft_free_path_finding(&data, n);
 	if (data.reached_end == true)
 		return (1);
 	return (-1);

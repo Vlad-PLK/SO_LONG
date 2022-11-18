@@ -6,14 +6,14 @@
 #    By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/24 18:12:20 by vpolojie          #+#    #+#              #
-#    Updated: 2022/10/06 09:38:28 by vpolojie         ###   ########.fr        #
+#    Updated: 2022/11/17 11:41:20 by vpolojie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-SRCS = so_long.c ft_check_map_func.c ft_initialize_sprites.c ft_map_func_part1.c ft_close_free.c\
-		ft_display_map.c ft_keys_func.c ft_others.c ft_path_finding.c ft_path_finding_part2.c\
+SRCS = so_long.c ft_check_map_func.c ft_initialize_sprites.c ft_create_map.c ft_free_functions.c\
+		ft_display_map.c ft_move_player.c ft_path_finding.c ft_path_finding_part2.c\
 		printf/libft/ft_putchar_fd.c printf/libft/ft_strdup.c printf/ft_base16.c printf/ft_base16M.c printf/ft_base16UL.c\
 		printf/ft_printf.c printf/ft_putnbru.c printf/ft_string.c printf/ft_char.c printf/ft_check_type.c printf/ft_putnbr_fd2.c \
 		printf/ft_addr.c printf/libft/ft_isdigit.c printf/ft_nbrdec.c printf/ft_nbrnsigne.c \

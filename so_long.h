@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 15:48:42 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/11/04 09:21:49 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/17 11:04:21 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int		ft_check_extension(char *arg);
 int		ft_map_rect_check(char **map_lines, int nb_lines);
 int		ft_map_one_lst_check(char **map_lines, int nb_lines);
 int		ft_map_check_cara(char **map_lines, int nb_lines);
-int		ft_close_key(int keycode, t_mlx *mlx);
 int		ft_close_mouse(t_mlx *mlx);
 int		ft_loop_cara(t_mlx *mlx);
 int		get_next_line_v2(int fd);
@@ -106,7 +105,6 @@ int		ft_check_wasd(int keycode, t_mlx *mlx);
 int		ft_find_path(char **map_lines, int nb_lines);
 int		isempty(t_queue *q);
 int		ft_dequeue(t_queue *q);
-t_img	*ft_cara(t_mlx *mlx);
 t_img	*ft_door(t_mlx *mlx);
 t_img	*ft_collct(t_mlx *mlx);
 t_img	*ft_floor(t_mlx *mlx);
@@ -116,20 +114,21 @@ void	ft_free_wasd_show_result(t_mlx *mlx, t_img *door);
 void	ft_wasd_move_part2(int keycode, t_mlx *mlx, t_img *door);
 void	ft_wasd_move(int keycode, t_mlx *mlx, t_img *door);
 void	ft_wasd_loop(t_mlx *mlx, int keycode);
-void	ft_error_func(char **map, int line);
+void	ft_error_func(char **map);
 void	ft_display_map(char	**map, int nb_lines);
 void	ft_display_others(t_mlx *mlx, t_img *mur, char **map);
 void	ft_display_all(t_mlx *mlx, t_img *mur, char **map);
 void	ft_check_close(t_mlx *mlx);
 void	ft_free_img(t_img *sol, t_img *collct, t_img *door);
 void	so_long(char *map);
-void	create_mlx(t_mlx *mlx, char **map);
+void	create_mlx(t_mlx *mlx, char **map_lines);
 void	ft_starting_cell(t_data *data, char **map_lines, int nb_lines);
 void	initialize(t_queue *q);
 void	ft_enqueue(t_queue *q, int value);
-void	ft_free_path_finding(t_queue *rq, t_queue *cq, t_data *data, int n);
+void	ft_free_path_finding(t_data *data, int n);
 void	ft_bfs_algo(t_queue *rq, t_queue *cq, t_data *data, char **map_lines);
 void	ft_check_neighbours(t_data *data, char **map, t_queue *rq, t_queue *cq);
+void	ft_exit_func(char *error_message);
 bool	**create_visited_map(char **map, int nb, t_data *data);
 
 #endif
