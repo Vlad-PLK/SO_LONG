@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 22:32:37 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/11/18 12:55:31 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/19 11:21:54 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ int	ft_loop_cara(t_mlx *mlx)
 {
 	int	i;
 	int	j;
-	int	steps;	
 
-	steps = 0;
 	i = ((mlx->y) / 32);
 	j = ((mlx->x) / 32);
 	if (mlx->map[i][j] == '1')
