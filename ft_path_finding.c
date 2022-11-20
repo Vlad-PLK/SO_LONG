@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 09:35:35 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/11/18 10:25:31 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/20 21:09:04 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ int	ft_find_path(char **map_lines, int n)
 	ft_enqueue(cq, data.player_j);
 	data.v_map[data.player_i][data.player_j] = true;
 	ft_bfs_algo(rq, cq, &data, map_lines);
+	free(rq);
+	free(cq);
 	ft_free_path_finding(&data, n);
 	if (data.reached_end == true)
 		return (1);

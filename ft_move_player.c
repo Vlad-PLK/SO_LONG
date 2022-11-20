@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 22:32:37 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/11/19 11:21:54 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/20 21:46:51 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,20 @@
 
 int	ft_loop_cara(t_mlx *mlx)
 {
-	int	i;
-	int	j;
-
-	i = ((mlx->y) / 32);
-	j = ((mlx->x) / 32);
-	if (mlx->map[i][j] == '1')
-		return (0);
-	if (mlx->map[i][j] != '1')
-		mlx_put_image_to_window(mlx->mlx, mlx->mlx_win,
-			mlx->img, mlx->x, mlx->y);
+	if ((mlx->nb_pas % 2) == 0)
+	{
+		mlx->relative_path = "./includes/DarkKnightXPM/tile002.xpm";
+		mlx->img = mlx_xpm_file_to_image(mlx->mlx, mlx->relative_path,
+				&mlx->img_width, &mlx->img_height);
+	}
+	else
+	{
+		mlx->relative_path = "./includes/DarkKnightXPM/tile000.xpm";
+		mlx->img = mlx_xpm_file_to_image(mlx->mlx, mlx->relative_path,
+				&mlx->img_width, &mlx->img_height);
+	}
+	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win,
+		mlx->img, mlx->x, mlx->y);
 	return (0);
 }
 
@@ -105,8 +109,6 @@ void	ft_wasd_loop(t_mlx *mlx, int keycode)
 		mlx->map[mlx->i][mlx->j] = '0';
 	}
 	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, sol->img, mlx->x, mlx->y);
-	free(door);
-	free(sol);
 	mlx_loop_hook(mlx->mlx, ft_loop_cara, mlx);
 }
 
