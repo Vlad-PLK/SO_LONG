@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:02:27 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/11/17 10:51:27 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/21 10:53:07 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int	main(int argc, char **argv)
 {
 	if (argc == 2)
 		so_long(argv[1]);
+	else if (argc == 1)
+		ft_printf("Error, no map passed\n");
 	else
 		ft_printf("Error, too many arguments\n");
 }
