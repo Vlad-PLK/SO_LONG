@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 22:32:37 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/11/20 21:46:51 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/21 11:25:10 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,27 @@
 
 int	ft_loop_cara(t_mlx *mlx)
 {
-	if ((mlx->nb_pas % 2) == 0)
-	{
-		mlx->relative_path = "./includes/DarkKnightXPM/tile002.xpm";
-		mlx->img = mlx_xpm_file_to_image(mlx->mlx, mlx->relative_path,
-				&mlx->img_width, &mlx->img_height);
-	}
-	else
-	{
-		mlx->relative_path = "./includes/DarkKnightXPM/tile000.xpm";
-		mlx->img = mlx_xpm_file_to_image(mlx->mlx, mlx->relative_path,
-				&mlx->img_width, &mlx->img_height);
-	}
+	t_img	*mur;
+
+	mur = ft_wall(mlx);
+	mlx_string_put(mlx->mlx, mlx->mlx_win, 8, 20, 0xffffff,
+		ft_itoa(mlx->nb_pas));
+	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win,
+		mur->img, 0, 0);
+	mlx_string_put(mlx->mlx, mlx->mlx_win, 8, 20, 0xffffff,
+		ft_itoa(mlx->nb_pas));
 	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win,
 		mlx->img, mlx->x, mlx->y);
+	free(mur);
 	return (0);
 }
 
-void	ft_wasd_move_part2(int keycode, t_mlx *mlx, t_img *door)
+void	ft_wasd_move_part2(int keycode, t_mlx *mlx)
 {
 	if (keycode == 2 && (mlx->map[mlx->i][mlx->j +1] != '1'))
 	{
-		if (mlx->map[mlx->i][mlx->j +1] == 'C' && mlx->items == 1)
-			end_map_condition(mlx, door);
+		if (mlx->map[mlx->i][mlx->j +1] == 'C' && mlx->items > 1)
+			mlx->items--;
 		if (mlx->map[mlx->i][mlx->j +1] == 'E' && mlx->items == 0)
 			ending_message(mlx);
 		if (!(mlx->map[mlx->i][mlx->j +1] == 'E' && mlx->items != 0))
@@ -53,8 +51,8 @@ void	ft_wasd_move_part2(int keycode, t_mlx *mlx, t_img *door)
 	}
 	if (keycode == 13 && (mlx->map[mlx->i -1][mlx->j] != '1'))
 	{
-		if (mlx->map[mlx->i -1][mlx->j] == 'C' && mlx->items == 1)
-			end_map_condition(mlx, door);
+		if (mlx->map[mlx->i -1][mlx->j] == 'C' && mlx->items > 1)
+			mlx->items--;
 		if (mlx->map[mlx->i -1][mlx->j] == 'E' && mlx->items == 0)
 			ending_message(mlx);
 		if (!(mlx->map[mlx->i -1][mlx->j] == 'E' && mlx->items != 0))
@@ -64,12 +62,12 @@ void	ft_wasd_move_part2(int keycode, t_mlx *mlx, t_img *door)
 	}
 }
 
-void	ft_wasd_move(int keycode, t_mlx *mlx, t_img *door)
+void	ft_wasd_move(int keycode, t_mlx *mlx)
 {
 	if (keycode == 0 && (mlx->map[mlx->i][mlx->j -1] != '1'))
 	{
-		if (mlx->map[mlx->i][mlx->j -1] == 'C' && mlx->items == 1)
-			end_map_condition(mlx, door);
+		if (mlx->map[mlx->i][mlx->j -1] == 'C' && mlx->items > 1)
+			mlx->items--;
 		if (mlx->map[mlx->i][mlx->j -1] == 'E' && mlx->items == 0)
 			ending_message(mlx);
 		if (!(mlx->map[mlx->i][mlx->j -1] == 'E' && mlx->items != 0))
@@ -79,8 +77,8 @@ void	ft_wasd_move(int keycode, t_mlx *mlx, t_img *door)
 	}
 	if (keycode == 1 && (mlx->map[mlx->i +1][mlx->j] != '1'))
 	{
-		if (mlx->map[mlx->i +1][mlx->j] == 'C' && mlx->items == 1)
-			end_map_condition(mlx, door);
+		if (mlx->map[mlx->i +1][mlx->j] == 'C' && mlx->items > 1)
+			mlx->items--;
 		if (mlx->map[mlx->i +1][mlx->j] == 'E' && mlx->items == 0)
 			ending_message(mlx);
 		if (!(mlx->map[mlx->i +1][mlx->j] == 'E' && mlx->items != 0))
@@ -88,7 +86,7 @@ void	ft_wasd_move(int keycode, t_mlx *mlx, t_img *door)
 		if (!(mlx->map[mlx->i +1][mlx->j] == 'E' && mlx->items != 0))
 			mlx->y = mlx->y + 32;
 	}
-	ft_wasd_move_part2(keycode, mlx, door);
+	ft_wasd_move_part2(keycode, mlx);
 }
 
 void	ft_wasd_loop(t_mlx *mlx, int keycode)
@@ -102,12 +100,13 @@ void	ft_wasd_loop(t_mlx *mlx, int keycode)
 	door->img = mlx_xpm_file_to_image(mlx->mlx, door->relative_path,
 			&door->img_width, &door->img_height);
 	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, sol->img, mlx->x, mlx->y);
-	ft_wasd_move(keycode, mlx, door);
-	if (mlx->map[mlx->i][mlx->j] == 'C' && mlx->items != 0)
-	{
-		mlx->items--;
-		mlx->map[mlx->i][mlx->j] = '0';
-	}
+	if (((keycode == 0 && (mlx->map[mlx->i][mlx->j -1] == 'C'))
+		|| (keycode == 1 && (mlx->map[mlx->i +1][mlx->j] == 'C'))
+		|| (keycode == 2 && (mlx->map[mlx->i][mlx->j +1] == 'C'))
+		|| (keycode == 13 && (mlx->map[mlx->i -1][mlx->j] == 'C')))
+		&& mlx->items == 1)
+		end_map_condition(mlx, door);
+	ft_wasd_move(keycode, mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, sol->img, mlx->x, mlx->y);
 	mlx_loop_hook(mlx->mlx, ft_loop_cara, mlx);
 }
