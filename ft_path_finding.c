@@ -6,14 +6,14 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 09:35:35 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/11/20 21:09:04 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/25 11:55:22 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "mlx/mlx.h"
 #include "printf/ft_printf.h"
-#include "printf/libft/libft.h"
+#include "libft/libft.h"
 #include "get_next_line/get_next_line.h"
 #include "so_long.h"
 #include <stdbool.h>

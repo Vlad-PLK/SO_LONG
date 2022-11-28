@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:47:29 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/11/14 19:07:12 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/25 11:55:22 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "mlx/mlx.h"
 #include "printf/ft_printf.h"
-#include "printf/libft/libft.h"
+#include "libft/libft.h"
 #include "get_next_line/get_next_line.h"
 #include "so_long.h"
 #include <fcntl.h>

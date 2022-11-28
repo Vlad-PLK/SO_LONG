@@ -6,19 +6,14 @@
 #    By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/24 18:12:20 by vpolojie          #+#    #+#              #
-#    Updated: 2022/11/18 11:40:16 by vpolojie         ###   ########.fr        #
+#    Updated: 2022/11/28 11:05:30 by vpolojie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
 SRCS = so_long.c ft_check_map_func.c ft_initialize_sprites.c ft_create_map.c ft_free_functions.c \
-		ft_display_map.c ft_move_player.c ft_path_finding.c ft_path_finding_part2.c\
-		printf/libft/ft_putchar_fd.c printf/libft/ft_strdup.c printf/ft_base16.c printf/ft_base16M.c printf/ft_base16UL.c\
-		printf/ft_printf.c printf/ft_putnbru.c printf/ft_string.c printf/ft_char.c printf/ft_check_type.c printf/ft_putnbr_fd2.c \
-		printf/ft_addr.c printf/libft/ft_isdigit.c printf/ft_nbrdec.c printf/ft_nbrnsigne.c \
-		printf/libft/ft_putstr_fd.c printf/ft_nbrtohexa.c printf/ft_nbrtohexamaj.c printf/libft/ft_itoa.c \
-		printf/libft/ft_atoi.c printf/libft/ft_split.c printf/libft/ft_strlen.c printf/libft/ft_strjoin.c \
+		ft_display_map.c ft_move_player.c ft_path_finding.c ft_path_finding_part2.c \
 		get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
 
@@ -30,26 +25,38 @@ MLXFLAGS = -framework OpenGL -framework AppKit
 
 MLX_FOLDER = mlx
 
-INCLUDE = -I./${MLX_FOLDER}
+LIBFT_FOLDER = libft
 
-LIBRAIRIES = -L./${MLX_FOLDER} -lmlx
+PRINTF_FOLDER = printf
 
+INCLUDE = -I./${MLX_FOLDER} -I./${LIBFT_FOLDER} -I./${PRINTF_FOLDER}
+
+LIBRAIRIES = -L./${MLX_FOLDER} -lmlx -L./${LIBFOLDER_LIBFT} -lft -L./${PRINTF_FOLDER} -lftprintf
 
 %.o:		%.c
-	${CC} ${CFLAGS} ${INCLUDES} -c $< -o $@
+	gcc ${CFLAGS} ${INCLUDES} -c $< -o $@
 
 
 $(NAME):	${OBJS}
-	make -s -C ${MLX_FOLDER}
-	${CC} ${CFLAGS} $^ ${LIBRAIRIES} ${MLXFLAGS} -o $@
+	@make -s -C ${MLX_FOLDER}
+	@echo "\n\033[32mMLX COMPILED SUCCESSFULY\033\n"
+	@make -s -C ${PRINTF_FOLDER}
+	@echo "\033[32mLIBFT COMPILED SUCCESSFULY\033\n"
+	@${CC} ${CFLAGS} $^ ${LIBRAIRIES} ${MLXFLAGS} -o $@
+	@echo "\033[32mSO_LONG COMPILED SUCCESSFULY\033\n"
 
 all:		${NAME};
 
 clean:
+				@echo "Deleting all object files"
 				rm -f ${OBJS}
 
 fclean:		clean
+				@echo "\nRemoving ./so_long file"
 				rm -f ${NAME}
+				@echo "Deleting libft files"
+				rm -f libft/*.o
+				rm -f printf/*.o
 
 re:				fclean all
 
