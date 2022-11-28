@@ -6,7 +6,7 @@
 /*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 22:32:37 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/11/25 11:55:22 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/11/28 11:11:44 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void	ft_wasd_loop(t_mlx *mlx, int keycode)
 		&& mlx->items == 1)
 		end_map_condition(mlx, door);
 	ft_wasd_move(keycode, mlx);
+	if (mlx->map[mlx->i][mlx->j] == 'C')
+		mlx->map[mlx->i][mlx->j] = '0';
 	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, sol->img, mlx->x, mlx->y);
 	mlx_loop_hook(mlx->mlx, ft_loop_cara, mlx);
 }

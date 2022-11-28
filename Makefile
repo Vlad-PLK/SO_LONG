@@ -6,7 +6,7 @@
 #    By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/24 18:12:20 by vpolojie          #+#    #+#              #
-#    Updated: 2022/11/28 11:05:30 by vpolojie         ###   ########.fr        #
+#    Updated: 2022/11/28 11:14:59 by vpolojie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,9 +54,11 @@ clean:
 fclean:		clean
 				@echo "\nRemoving ./so_long file"
 				rm -f ${NAME}
-				@echo "Deleting libft files"
+				@echo "Deleting libft files & .a files"
 				rm -f libft/*.o
 				rm -f printf/*.o
+				rm -f libft/libft.a
+				rm -f printf/libftprintf.a
 
 re:				fclean all
 
