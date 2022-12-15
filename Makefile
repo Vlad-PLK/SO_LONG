@@ -6,7 +6,7 @@
 #    By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/24 18:12:20 by vpolojie          #+#    #+#              #
-#    Updated: 2022/11/28 11:14:59 by vpolojie         ###   ########.fr        #
+#    Updated: 2022/12/15 09:25:08 by vpolojie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ PRINTF_FOLDER = printf
 
 INCLUDE = -I./${MLX_FOLDER} -I./${LIBFT_FOLDER} -I./${PRINTF_FOLDER}
 
-LIBRAIRIES = -L./${MLX_FOLDER} -lmlx -L./${LIBFOLDER_LIBFT} -lft -L./${PRINTF_FOLDER} -lftprintf
+LIBRAIRIES = -L./${MLX_FOLDER} -lmlx -L./${LIBFT_FOLDER} -lft -L./${PRINTF_FOLDER} -lftprintf
 
 %.o:		%.c
 	gcc ${CFLAGS} ${INCLUDES} -c $< -o $@
