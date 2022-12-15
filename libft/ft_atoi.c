@@ -3,12 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpolojie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vpolojie <vpolojie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 18:37:04 by vpolojie          #+#    #+#             */
-/*   Updated: 2022/05/30 15:25:06 by vpolojie         ###   ########.fr       */
+/*   Updated: 2022/12/08 10:07:44 by vpolojie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
+
 int	ft_atoi(const char *str)
 {
 	int		i;
